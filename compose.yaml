@@ -2,4 +2,25 @@ services:
   api:
     build: .
     ports:
-      - "10002:3000"
+      - "9999:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - freecodecamp-urlshortener-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${USER_LOGIN} -d url_shortener"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+volumes:
+  freecodecamp-urlshortener-pg:
+    external: true
