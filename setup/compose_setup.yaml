@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres-setup
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGUSER=${USER_LOGIN}
+      - PGPASSWORD=${USER_PASSWORD}
+    volumes:
+      - freecodecamp-urlshortener-pg:/var/lib/postgresql/data
+
+volumes:
+  freecodecamp-urlshortener-pg:
+    external: true
