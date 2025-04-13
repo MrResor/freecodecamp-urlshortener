@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:slim
 EXPOSE 3000
 COPY . ./program
 WORKDIR /program
