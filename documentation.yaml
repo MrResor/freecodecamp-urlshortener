@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: Timestamp Microservice
+  description: Solution of a freecodecamp task for creating a timestamp microservice.
+  contact:
+    email: jakusienko@gmail.com
+  license:
+    name: MIT
+    url: https://en.wikipedia.org/wiki/MIT_License
+  version: 1.1.0
+externalDocs:
+  url: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice
+  description: FreeCodeCamp
+servers:
+  - url: https://timestamp.profresor.net
+paths:
+  /api:
+    get:
+      tags:
+        - endpoints
+      summary: Get current date
+      description: Get current date in both unix and utc formats
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Date"
+
+  /api/hello:
+    get:
+      tags:
+        - endpoints
+      summary: API says hello
+      description: Test endpoint to see if the API is running
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+                example:
+                  greting: "hello API"
+
+  /api/{date}:
+    get:
+      tags:
+        - endpoints
+      summary: Get given date in UTC and Unix formats
+      description: Takes in date in either UTC or YYYY-MM-DD format and returns dates in UTC and Unix formats.
+      parameters:
+        - in: path
+          name: date
+          schema:
+            type: string
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Date"
+      
+components:
+  schemas:
+    Date:
+      type: object
+      properties:
+        unix: 
+          type: integer
+        utc:
+          type: string
+      example: 
+        unix: 1451001600000
+        utc: "Fri, 25 Dec 2015 00:00:00 GMT"
+        
