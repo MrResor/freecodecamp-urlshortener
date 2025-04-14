@@ -17,6 +17,10 @@ const __dirname = import.meta.dirname;
 // so that your API is remotely testable by FCC 
 router.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 204
 
+// body parser declaration
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+
 // http://expressjs.com/en/starter/static-files.html
 router.use(express.static(path.join(__dirname, '..', 'public')));
 
