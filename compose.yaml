@@ -2,7 +2,7 @@ services:
   api:
     build: .
     ports:
-      - "9999:3000"
+      - "10002:3000"
     depends_on:
       db:
         condition: service_healthy
