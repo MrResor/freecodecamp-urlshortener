@@ -32,4 +32,17 @@ if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({ format: combined }));
 }
 
-export { logger };
+// declare logger
+const db_logger = winston.createLogger({
+    format: combined,
+    transports: [
+        new winston.transports.File({ filename: './logs/db.log' })
+    ]
+});
+
+if (process.env.NODE_ENV !== 'production') {
+    logger.add(new winston.transports.Console({ format: combined }));
+}
+
+
+export { logger, db_logger };
