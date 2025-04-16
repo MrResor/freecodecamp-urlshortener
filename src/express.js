@@ -2,7 +2,9 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 
+import { add_url } from "./api/shorturl/index.js";
 import { docs } from "./api/docs/index.js";
+import { get_url } from "./api/shorturl/:shorturl/index.js";
 import { hello } from "./api/hello/index.js";
 import { logger } from "./logger.js";
 import { mainView } from "./index.js";
@@ -42,7 +44,7 @@ router.use((req, _, next) => {
     let msg = `${req.method} ${req.path} - ${ip}`
 
     if (hasRouteToHandle) {
-        logger.info(msg);
+        logger.http(msg);
     } else {
         // No matching route for this request
         logger.error(msg);
@@ -59,6 +61,10 @@ router.use(mainView);
 router.use(hello);
 // /api/docs
 router.use(docs);
+// /api/shorturl
+router.use(add_url);
+// /api/shorturl/:id
+router.use(get_url);
 
 app.use(router);
 
