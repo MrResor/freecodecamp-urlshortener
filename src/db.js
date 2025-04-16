@@ -1,10 +1,14 @@
-import pg from 'pg'
+import pg from 'pg';
 import 'dotenv/config';
+import 'JSON';
+
+import { db_logger } from './logger.js';
 
 const { Pool } = pg;
 
-class db {
-    constuctor() {
+class Database {
+
+    constructor() {
         this.Pool = new Pool({
             user: `${process.env.USER_LOGIN}`,
             password: `${process.env.USER_PASSWORD}`,
@@ -18,12 +22,24 @@ class db {
         await this.Pool.connect();
     }
 
-    async is_present(url) {
-        let res = await this.Pool.connect('SELECT ID FROM urls WHERE URL=$1', [url]);
-        console.log(res);
+    async get_url(url = null, id = null) {
+        // quick fix and problematic solution, but with carefull usage should be ok
+        let query = `SELECT ID, URL FROM urls WHERE ${url ? 'URL' : 'ID'}=$1`;
+        let value = url ? url : id;
+        let result = await this.Pool.query(query, [value]);
+        db_logger.info(`SELECT ID, URL FROM urls WHERE ${url ? 'URL' : 'ID'}=${value}`);
+        db_logger.info(`Result: ${JSON.stringify(result.rows[0])}`);
+        return result.rows[0];
+    }
+
+    async add_url(url) {
+        let result = await this.Pool.query('INSERT INTO urls (URL) VALUES ($1) RETURNING ID', [url]);
+        db_logger.info(`INSERT INTO urls (URL) VALUES (${url}) RETURNING ID`);
+        db_logger.info(`Result: ${JSON.stringify(result.rows[0])}`);
+        return result.rows[0];
     }
 }
 
-await db.connect();
+const db = new Database();
 
 export { db };
