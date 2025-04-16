@@ -8,7 +8,7 @@ get_url.get("/api/shorturl/:id", async (req, res) => {
     
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
-        return res.status(400).json({ error: "Invalid URL ID" });
+        return res.status(401).json({ error: "Invalid ID" });
     }
 
     let result = await db.get_url(null, id);
@@ -16,7 +16,7 @@ get_url.get("/api/shorturl/:id", async (req, res) => {
     if (result) {
         res.status(301).redirect(result.url);
     } else {
-        res.status(404).json({ error: "No short URL found for the given input" });
+        res.status(404).json({ error: "No url found for the given ID" });
     }
 });
 
