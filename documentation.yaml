@@ -1,32 +1,91 @@
 openapi: 3.0.3
+
 info:
-  title: Timestamp Microservice
-  description: Solution of a freecodecamp task for creating a timestamp microservice.
+  title: Urlshortener Microservice
+  description: Solution of a freecodecamp task for creating a urlshortener microservice.
   contact:
     email: jakusienko@gmail.com
   license:
     name: MIT
     url: https://en.wikipedia.org/wiki/MIT_License
   version: 1.1.0
+
 externalDocs:
-  url: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice
+  url: https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice
   description: FreeCodeCamp
+
 servers:
-  - url: https://timestamp.profresor.net
+  - url: https://urlshortener.profresor.net
+
 paths:
-  /api:
-    get:
+  /api/urlshortener:
+    post:
       tags:
         - endpoints
-      summary: Get current date
-      description: Get current date in both unix and utc formats
+      summary: Shorten a URL
+      description: Takes in a URL and returns a shortened version of it.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+              example:
+                url: "https://www.google.com"
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Date"
+                $ref: "#/components/schemas/URL"
+        401:
+          description: Invalid URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid url"
+
+  /api/shorturl/{id}:
+    get:
+      tags:
+        - endpoints
+      summary: Get current date
+      description: Get current date in both unix and utc formats
+      responses:
+        301:
+          description: Successful operation, redirecting user to the original URL
+        401:
+          description: Invalid ID, non integer passed as id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid ID"
+        404:
+          description: ID not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "No url found for the given ID"
 
   /api/hello:
     get:
@@ -46,38 +105,17 @@ paths:
                     type: string
                 example:
                   greting: "hello API"
-
-  /api/{date}:
-    get:
-      tags:
-        - endpoints
-      summary: Get given date in UTC and Unix formats
-      description: Takes in date in either UTC or YYYY-MM-DD format and returns dates in UTC and Unix formats.
-      parameters:
-        - in: path
-          name: date
-          schema:
-            type: string
-          required: true
-          description: Numeric ID of the user to get
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Date"
       
 components:
   schemas:
-    Date:
+    URL:
       type: object
       properties:
-        unix: 
-          type: integer
-        utc:
+        original_url: 
           type: string
+        short_url:
+          type: integer
       example: 
-        unix: 1451001600000
-        utc: "Fri, 25 Dec 2015 00:00:00 GMT"
+        original_url: "https://www.google.com"
+        short_url: 40
         
