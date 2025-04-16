@@ -11,6 +11,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.6.0",
     "express": "^4.17.1",
+    "JSON": "^1.0.0",
     "pg": "^8.14.1",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
