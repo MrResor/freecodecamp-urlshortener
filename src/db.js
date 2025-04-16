@@ -20,6 +20,7 @@ class Database {
 
     async connect() {
         await this.Pool.connect();
+        db_logger.info('Connected to the database');
     }
 
     async get_url(url = null, id = null) {
