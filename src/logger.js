@@ -41,7 +41,7 @@ const db_logger = winston.createLogger({
 });
 
 if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston.transports.Console({ format: combined }));
+    db_logger.add(new winston.transports.Console({ format: combined }));
 }
 
 
