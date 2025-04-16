@@ -1,6 +1,5 @@
 import express from "express";
 import { db } from "../../../db.js";
-import { get } from "http";
 
 const get_url = express.Router();
 
