@@ -8,7 +8,7 @@ First, creation of your own <i>.env</i> file is required based on [<i>sample.env
 
 Next, a setup.sh file in setup folder needs to be run. It's purpose is preparing the docker volume containing database with table and a user who can use it.
 
-Finally, icro service can be run using the following command run from the project main directory:
+Finally, micro service can be run using the following command run from the project main directory:
 ```
 sudo docker compose up -d
 ```
