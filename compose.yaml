@@ -1,6 +1,7 @@
 services:
   api:
     build: .
+    restart: unless-stopped
     ports:
       - "10002:3000"
     depends_on:
@@ -14,6 +15,7 @@ services:
 
   db:
     image: postgres
+    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
