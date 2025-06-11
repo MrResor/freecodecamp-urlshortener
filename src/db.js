@@ -11,8 +11,8 @@ class Database {
     this.Pool = new Pool({
       user: process.env.USER_LOGIN,
       password: process.env.USER_PASSWORD,
-      host: 'db',
-      port: 5432,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       database: 'url_shortener'
     })
   }
