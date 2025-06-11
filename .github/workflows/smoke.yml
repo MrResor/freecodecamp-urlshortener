@@ -17,6 +17,8 @@ jobs:
           echo "POSTGRES_PASSWORD=admin" >> .env
           echo "USER_LOGIN=test" >> .env
           echo "USER_PASSWORD=test" >> .env
+          echo "DB_HOST=localhost" >> .env
+          ehco "DB_PORT=5432" >> .env
 
       - name: Start docker container
         run: docker compose up -d
