@@ -10,8 +10,8 @@ class Database {
 
     constructor() {
         this.Pool = new Pool({
-            user: `${process.env.USER_LOGIN}`,
-            password: `${process.env.USER_PASSWORD}`,
+            user: process.env.USER_LOGIN,
+            password: process.env.USER_PASSWORD,
             host: 'db',
             port: 5432,
             database: 'url_shortener',
@@ -42,5 +42,7 @@ class Database {
 }
 
 const db = new Database();
+
+await db.connect()
 
 export { db };
