@@ -6,8 +6,6 @@ import { dbLogger } from './logger.js'
 
 const { Pool } = pg
 
-var test
-
 class Database {
   constructor () {
     this.Pool = new Pool({
