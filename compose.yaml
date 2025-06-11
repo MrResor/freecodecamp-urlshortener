@@ -1,6 +1,8 @@
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile_api
     restart: unless-stopped
     ports:
       - "10002:3000"
@@ -14,12 +16,16 @@ services:
       NODE_ENV: production
 
   db:
-    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile_db
     restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGUSER=${USER_LOGIN}
+      - PGPASSWORD=${USER_PASSWORD}
     volumes:
-      - freecodecamp-urlshortener-pg:/var/lib/postgresql/data
+      - pg-volume:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${USER_LOGIN} -d url_shortener" ]
       interval: 10s
@@ -28,5 +34,4 @@ services:
       timeout: 10s
 
 volumes:
-  freecodecamp-urlshortener-pg:
-    external: true
+  pg-volume:
