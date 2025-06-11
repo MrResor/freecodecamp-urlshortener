@@ -12,7 +12,7 @@ beforeAll(async () => {
   vi.stubEnv('DB_PORT', port.toString())
 
   // Import the app AFTER the container is up and env vars are set
-  const mod = await import('../src/express.mjs')
+  const mod = await import('../src/express.js')
   app = mod.app
 }, 60_000)
 
