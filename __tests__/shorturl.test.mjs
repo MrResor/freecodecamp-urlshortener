@@ -23,11 +23,11 @@ afterAll(async () => {
   vi.unstubAllEnvs()
 })
 
+const url = 'https://www.google.com'
+
 describe('/api/shorturl', () => {
   it('add url', async () => {
-    const res = await await request(app).post('/api/shorturl').send({ url: 'https://www.google.com' })
-
-    url = res.body.short_url // Store the short URL for later tests
+    const res = await await request(app).post('/api/shorturl').send({ url })
 
     expect(res.statusCode).toBe(200)
     expect(res.body).toEqual({
@@ -43,4 +43,3 @@ describe('/api/shorturl', () => {
     expect(res.body).toEqual({ error: 'Invalid URL' })
   })
 })
-

@@ -27,7 +27,6 @@ beforeAll(async () => {
   })
 
   id = res.body.short_url // Store the short URL ID for later tests
-
 }, 60_000)
 
 afterAll(async () => {
@@ -39,7 +38,7 @@ afterAll(async () => {
 
 describe('/api/shorturl/:id', () => {
   it('get url by id', async () => {
-    const res = await request(app).get(`/api/shorturl/${url}`)
+    const res = await request(app).get(`/api/shorturl/${id}`)
 
     expect(res.statusCode).toBe(301)
     expect(res.headers.location).toBe('https://www.google.com')
