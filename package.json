@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "standard": "standard",
+    "lint": "standard --fix"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -13,6 +15,7 @@
     "express": "^4.17.1",
     "JSON": "^1.0.0",
     "pg": "^8.14.1",
+    "standard": "^17.1.2",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
     "yaml": "^2.7.1"
