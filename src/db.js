@@ -6,6 +6,24 @@ import { dbLogger } from './logger.js'
 
 const { Pool } = pg
 
+async function errors (err) {
+  switch (err.code) {
+    case '57P01': // admin shutdown
+      if (process.env.NODE_ENV !== 'test') {
+        dbLogger.error('Database connection was closed by the server')
+        await new Promise(resolve => setTimeout(resolve, 5000))
+        process.exit(1)
+      }
+      break
+    default:
+      if (!(process.env.NODE_ENV === 'test' && err.message === 'Connection terminated unexpectedly')) {
+        dbLogger.error('Unknown error occurred: ' + err.message)
+        await new Promise(resolve => setTimeout(resolve, 5000))
+        process.exit(1)
+      }
+  }
+}
+
 class Database {
   constructor () {
     this.Pool = new Pool({
@@ -15,11 +33,27 @@ class Database {
       port: process.env.DB_PORT,
       database: 'url_shortener'
     })
+
+    this.Pool.on('connect', (_client) => {
+      // On each new client initiated, need to register for error(this is a serious bug on pg, the client throw errors although it should not)
+      _client.on('error', (err) => {
+        errors(err)
+      })
+    })
+
+    this.Pool.on('error', (err) => {
+      errors(err)
+    })
   }
 
   async connect () {
-    await this.Pool.connect()
-    dbLogger.info('Connected to the database')
+    try {
+      await this.Pool.connect()
+      dbLogger.info('Connected to the database')
+    } catch (error) {
+      dbLogger.error(`Error connecting to the database: ${error.message}`)
+      throw error
+    }
   }
 
   async get_url (url = null, id = null) {
