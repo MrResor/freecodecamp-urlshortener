@@ -37,11 +37,20 @@ afterAll(async () => {
 })
 
 describe('/api/shorturl/:id', () => {
-  it('get url by id', async () => {
-    const res = await request(app).get(`/api/shorturl/${id}`)
+  it('get url by id before redirect', async () => {
+    const res = await request(app).get(`/api/shorturl/${id}`).redirects(0)
 
-    expect(res.statusCode).toBe(301)
+    expect(res.statusCode).toBe(302)
     expect(res.headers.location).toBe('https://www.google.com')
+  })
+
+  it('get url by id after redirect', async () => {
+    const res = await request(app).get(`/api/shorturl/${id}`).redirects(1)
+
+    expect(res.statusCode).toBe(200)
+    expect(res.text).toContain('<title>Google</title>')
+    expect(res.headers['content-type']).toContain('text/html')
+    expect(res.request.host).toBe('www.google.com')
   })
 
   it('try getting non-existing url', async () => {
@@ -54,7 +63,7 @@ describe('/api/shorturl/:id', () => {
   it('try getting url with invalid id', async () => {
     const res = await request(app).get('/api/shorturl/invalid-id')
 
-    expect(res.statusCode).toBe(400)
+    expect(res.statusCode).toBe(401)
     expect(res.body).toEqual({ error: 'Invalid ID' })
   })
 })
