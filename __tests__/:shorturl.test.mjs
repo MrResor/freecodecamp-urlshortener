@@ -8,6 +8,7 @@ let app, container, port
 
 const url = 'https://www.google.com'
 let id
+var test
 
 beforeAll(async () => {
   [container, port] = await setupContainer(5432 + Number(process.env.VITEST_WORKER_ID))
