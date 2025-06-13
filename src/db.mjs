@@ -6,7 +6,7 @@ import { dbLogger } from './logger.mjs'
 
 const { Pool } = pg
 
-async function errors(err) {
+async function errors (err) {
   switch (err.code) {
     case '57P01': // admin shutdown
       if (process.env.NODE_ENV !== 'test') {
@@ -25,7 +25,7 @@ async function errors(err) {
 }
 
 class Database {
-  constructor() {
+  constructor () {
     this.Pool = new Pool({
       user: process.env.USER_LOGIN,
       password: process.env.USER_PASSWORD,
@@ -46,7 +46,7 @@ class Database {
     })
   }
 
-  async connect() {
+  async connect () {
     try {
       await this.Pool.connect()
       dbLogger.info('Connected to the database')
@@ -56,7 +56,7 @@ class Database {
     }
   }
 
-  async get_url(url = null, id = null) {
+  async get_url (url = null, id = null) {
     // quick fix and problematic solution, but with carefull usage should be ok
     const query = `SELECT ID, URL FROM urls WHERE ${url ? 'URL' : 'ID'}=$1`
     const value = url || id
@@ -66,7 +66,7 @@ class Database {
     return result.rows[0]
   }
 
-  async add_url(url) {
+  async add_url (url) {
     const result = await this.Pool.query('INSERT INTO urls (URL) VALUES ($1) RETURNING ID', [url])
     dbLogger.info(`INSERT INTO urls (URL) VALUES (${url}) RETURNING ID`)
     dbLogger.info(`Result: ${JSON.stringify(result.rows[0])}`)
