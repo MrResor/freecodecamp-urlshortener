@@ -12,7 +12,7 @@ getUrl.get('/api/shorturl/:id', async (req, res) => {
   const result = await db.get_url(null, id)
 
   if (result) {
-    res.status(301).redirect(result.url)
+    res.status(302).redirect(result.url)
   } else {
     res.status(404).json({ error: 'No url found for the given ID' })
   }
