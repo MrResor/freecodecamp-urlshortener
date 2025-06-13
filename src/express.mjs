@@ -2,12 +2,12 @@ import cors from 'cors'
 import express from 'express'
 import path from 'path'
 
-import { addUrl } from './api/shorturl/index.mjs'
 import { docs } from './api/docs/index.mjs'
-import { getUrl } from './api/shorturl/:shorturl/index.mjs'
 import { hello } from './api/hello/index.mjs'
-import { logger } from './logger.mjs'
+import { getUrl } from './api/shorturl/:shorturl/index.mjs'
+import { addUrl } from './api/shorturl/index.mjs'
 import { mainView } from './index.mjs'
+import { logger } from './logger.mjs'
 
 const app = express()
 const router = express.Router()
