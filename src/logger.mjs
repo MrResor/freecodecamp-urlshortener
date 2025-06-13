@@ -27,7 +27,7 @@ const logger = winston.createLogger({
   ]
 })
 
-if (process.env.NODE_ENV !== 'production') {
+if (['debug', 'dev'].includes(process.env.NODE_ENV)) {
   logger.add(new winston.transports.Console({ format: combined }))
 }
 
@@ -39,7 +39,7 @@ const dbLogger = winston.createLogger({
   ]
 })
 
-if (process.env.NODE_ENV !== 'production') {
+if (['debug', 'dev'].includes(process.env.NODE_ENV)) {
   dbLogger.add(new winston.transports.Console({ format: combined }))
 }
 
