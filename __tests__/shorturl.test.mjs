@@ -5,7 +5,6 @@ import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { setupContainer } from './container.mjs'
 
 let app, container, port
-var test
 
 beforeAll(async () => {
   [container, port] = await setupContainer(5432 + Number(process.env.VITEST_WORKER_ID))
