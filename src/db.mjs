@@ -2,7 +2,7 @@ import pg from 'pg'
 import 'dotenv/config'
 import 'JSON'
 
-import { dbLogger } from './logger.js'
+import { dbLogger } from './logger.mjs'
 
 const { Pool } = pg
 

@@ -1,5 +1,5 @@
-import { app } from './src/express.js'
-import { logger } from './src/logger.js'
+import { app } from './src/express.mjs'
+import { logger } from './src/logger.mjs'
 
 // Listen on port set in environment variable or default to 3000
 const listener = app.listen(3000, function () {
