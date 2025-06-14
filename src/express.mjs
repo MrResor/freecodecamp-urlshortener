@@ -1,6 +1,5 @@
 import cors from 'cors'
 import express from 'express'
-import path from 'path'
 
 import { docs } from './api/docs/index.mjs'
 import { hello } from './api/hello/index.mjs'
@@ -11,7 +10,6 @@ import { logger } from './logger.mjs'
 
 const app = express()
 const router = express.Router()
-const __dirname = import.meta.dirname
 
 // Middleware declaration
 
@@ -24,7 +22,7 @@ router.use(express.json())
 router.use(express.urlencoded({ extended: true }))
 
 // http://expressjs.com/en/starter/static-files.html
-router.use(express.static(path.join(__dirname, '..', 'public')))
+router.use(express.static('public'))
 
 router.use((req, _, next) => {
   let hasRouteToHandle = null
