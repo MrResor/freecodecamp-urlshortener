@@ -37,8 +37,7 @@ router.use((req, _, next) => {
     }
   })
 
-  const ip = Object.hasOwn(req.headers, 'x-forwarded-for') ? req.headers['x-forwarded-for'] : req.ip
-  const msg = `${req.method} ${req.path} - ${ip}`
+  const msg = `${req.method} ${req.path} - ${req.headers['x-forwarded-for'] || req.ip}`
 
   if (hasRouteToHandle) {
     logger.http(msg)
