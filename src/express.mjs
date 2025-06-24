@@ -3,7 +3,7 @@ import express from 'express'
 
 import { docs } from './api/docs/index.mjs'
 import { hello } from './api/hello/index.mjs'
-import { getUrl } from './api/shorturl/:shorturl/index.mjs'
+import { getUrl } from './api/shorturl/{shorturl}/index.mjs'
 import { addUrl } from './api/shorturl/index.mjs'
 import { mainView } from './index.mjs'
 import { logger } from './logger.mjs'
