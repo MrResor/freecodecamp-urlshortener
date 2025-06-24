@@ -17,11 +17,11 @@ sudo docker compose up -d
 
 As the result, the microservice will be available at 127.0.0.1:10002.
 
+NOTE: Remember to update the paths to conform to file layout on your machine in [<i>compose.yaml</i>](https://github.com/MrResor/freecodecamp-urlshortener/blob/main/compose.yaml).
+
 ## Description
 
 The documentation of the application endpoints can be found under [<i>/api/docs</i>](https://urlshortener.profresor.net/api/docs).
-
-NOTE: Remember to update the paths to conform to file layout on your machine in [<i>compose.yaml</i>](https://github.com/MrResor/freecodecamp-urlshortener/blob/main/compose.yaml).
 
 ## NOTE
 
