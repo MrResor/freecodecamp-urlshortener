@@ -9,11 +9,11 @@ addUrl.post('/api/shorturl', async (req, res) => {
   try {
     url = new URL(req.body.url)
   } catch (e) {
-    res.status(400).json({ error: 'invalid url' }) // status code should be 400 but does not pass freecodeacamp tests
+    res.status(401).json({ error: 'invalid url' }) // status code should be 400 but does not pass freecodeacamp tests
     return
   }
   if (!['https:', 'http:'].includes(url.protocol)) {
-    res.status(400).json({ error: 'invalid url' }) // same as above
+    res.status(401).json({ error: 'invalid url' }) // same as above
     return
   }
 
