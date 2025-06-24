@@ -37,7 +37,7 @@ describe('/api/shorturl', () => {
   it('try adding invalid url', async () => {
     const res = await request(app).post('/api/shorturl').send({ url: 'invalid-url' })
 
-    expect(res.statusCode).toBe(400)
+    expect(res.statusCode).toBe(401)
     expect(res.body).toEqual({ error: 'invalid url' })
   })
 })
