@@ -59,10 +59,10 @@ paths:
     get:
       tags:
         - endpoints
-      summary: Get current date
-      description: Get current date in both unix and utc formats
+      summary: Redirect to original URL
+      description: Takes in a shortened URL ID and redirects to the original URL.
       responses:
-        301:
+        302:
           description: Successful operation, redirecting user to the original URL
         401:
           description: Invalid ID, non integer passed as id
