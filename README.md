@@ -22,7 +22,3 @@ NOTE: Remember to update the paths to conform to file layout on your machine in 
 ## Description
 
 The documentation of the application endpoints can be found under [<i>/api/docs</i>](https://urlshortener.profresor.net/api/docs).
-
-## NOTE
-
-Due to current folder names convention, this repo cannot be cloned on windows OS (specific reason is :shorturl folder).
