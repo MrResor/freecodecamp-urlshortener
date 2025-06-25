@@ -11,6 +11,7 @@ The only requirement is Docker, which can be installed from [official website](h
 First, creation of your own <i>.env</i> file is required based on [<i>sample.env</i>](https://github.com/MrResor/freecodecamp-urlshortener/blob/main/sample.env) file.
 
 Finally, micro service can be run using the following command run from the project main directory:
+
 ```
 sudo docker compose up -d
 ```
